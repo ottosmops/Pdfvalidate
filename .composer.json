@@ -1,0 +1,41 @@
+{
+    "name": "ottosmops/pdfvalidate",
+    "description": "Simple validate a PDF (try to open it with pdftocairo)",
+    "keywords": [
+        "anton",
+        "ottosmops",
+        "pdfvalidate",
+        "pdftocairo",
+        "pdf",
+        "validation"
+    ],
+    "authors": [
+        {
+            "name": "ak",
+            "email": "kraenzle@k-r.ch",
+            "homepage": "https://wwwk-r.ch"
+        }
+    ],
+    "homepage": "https://github.com/ottosmops/pdfvalidate",
+    "license": "MIT",
+    "require": {
+        "php": ">=5.6.0",
+        "symfony/process": ">=3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ottosmops\\Pdfvalidate\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ottosmops\\Pdfvalidate\\Test\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}
