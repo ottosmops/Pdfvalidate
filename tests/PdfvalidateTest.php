@@ -36,7 +36,7 @@ class PdfvalidateTest extends TestCase
         $validator = new Validator($this->src_path . $this->slightly_corrupted);
         $actual = $validator->check();
         $this->assertFalse($actual);
-        $this->assertSame($validator->error, "Could open the PDF, but the pdf seems to be corrupted.");
+        $this->assertSame($validator->error, "Could open the PDF, but the PDF seems to be corrupted.");
     }
 
     /** @test */

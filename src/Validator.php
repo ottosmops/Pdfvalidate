@@ -39,7 +39,6 @@ class Validator {
         $process->run();
         if (!$process->isSuccessful()) {
             throw new BinaryNotFound($process);
-            return false;
         }
 
         return true;
@@ -65,20 +64,15 @@ class Validator {
             return true;
         };
 
-        $error = 'Error opening';
-        if (mb_strpos($output, $error) !== false) {
+        if (mb_strpos($output, 'Error') !== false) {
+            $this->error = "Could open the PDF, but the PDF seems to be corrupted.";
+        }
+
+        if (mb_strpos($output, 'Error opening') !== false) {
             $this->error = "Could not open the PDF.";
-            $this->output = $output;
-            return false;
         }
 
-        $error = 'Error';
-        if (mb_strpos($output, $error) !== false) {
-            $this->error = "Could open the PDF, but the pdf seems to be corrupted.";
-            $this->output = $output;
-            return false;
-        }
-
+        $this->output = $output;
         return false;
     }
 
