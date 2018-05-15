@@ -31,6 +31,14 @@ class PdfvalidateTest extends TestCase
     }
 
     /** @test */
+    public function it_static_validates_pdf()
+    {
+        putenv('PATH=$PATH:/usr/local/bin/:/usr/bin');
+        $actual = Validator::validate($this->src_path . $this->correct_file)->check();
+        $this->assertTrue($actual);
+    }
+
+    /** @test */
     public function slightly_corrupted_pdf()
     {
         putenv('PATH=$PATH:/usr/local/bin/:/usr/bin');

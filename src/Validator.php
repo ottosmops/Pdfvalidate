@@ -19,9 +19,9 @@ class Validator {
 
     public $executable;
 
-    public function __construct($file, $executable = 'pdftocairo')
+    public function __construct($file, $executable = '')
     {
-        $this->executable = $executable;
+        $this->executable = $executable ? $executable : 'pdftocairo';
         $this->checkExecutable();
         if (!is_file($file)) {
             throw new FileNotFound($file);
@@ -32,6 +32,11 @@ class Validator {
         $this->file = $file;
     }
 
+    public static function validate($file, $executable = '')
+    {
+        return (new static($file, $executable));
+    }
+
     public function checkExecutable()
     {
         $process = new Process('which ' . $this->executable);
@@ -39,10 +44,8 @@ class Validator {
         if (!$process->isSuccessful()) {
             throw new BinaryNotFound($process);
         }
-
         return true;
     }
-
 
     public static function is_pdf($file)
     {
@@ -74,5 +77,4 @@ class Validator {
         $this->output = $output;
         return false;
     }
-
 }
