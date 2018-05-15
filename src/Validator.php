@@ -2,7 +2,6 @@
 
 namespace Ottosmops\Pdfvalidate;
 
-use Ottosmops\Pdfvalidate\Exceptions\PdfNotValide;
 use Ottosmops\Pdfvalidate\Exceptions\FileNotFound;
 use Ottosmops\Pdfvalidate\Exceptions\BinaryNotFound;
 use Ottosmops\Pdfvalidate\Exceptions\MimeTypeIsNotPdf;
