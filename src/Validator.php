@@ -66,6 +66,8 @@ class Validator {
             return true;
         };
 
+        $this->error = $output;
+
         if (mb_strpos($output, 'Error') !== false) {
             $this->error = "Could open the PDF, but the PDF seems to be corrupted.";
         }
@@ -74,7 +76,6 @@ class Validator {
             $this->error = "Could not open the PDF.";
         }
 
-        $this->error = $output;
         return false;
     }
 }
