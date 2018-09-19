@@ -55,7 +55,7 @@ class Validator {
 
     public function check()
     {
-        $command = $this->executable . ' -pdf '. $this->file .' - 2>&1 >/dev/null';
+        $command = $this->executable . ' -pdf "' . $this->file . '" - 2>&1 >/dev/null';
 
         $process = new Process($command);
         $process->run();
@@ -74,7 +74,7 @@ class Validator {
             $this->error = "Could not open the PDF.";
         }
 
-        $this->output = $output;
+        $this->error = $output;
         return false;
     }
 }
