@@ -22,6 +22,12 @@ if (!$validator->check()) {
 ```
 This is the command which is used behind the scene: ```pdftocairo -pdf path/to/file - 2>&1 >/dev/null```.
 
+There are 2 optional parameters: ```$executable``` (path to the command); ```$timeout``` (in seconds):
+
+```php
+$validator = new \Ottosmops\Pdfvalidate\Validator($file, $executable = '', $timeout = 60); 
+```
+
 ## Requirements
 
 The Package uses [pdftocairo](https://linux.die.net/man/1/pdftocairo). Make sure that this is installed: ```which pdftocairo```

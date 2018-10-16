@@ -2,18 +2,15 @@
 
 namespace Ottosmops\Pdfvalidate\Test;
 
-use PHPUnit\Framework\TestCase;
-
-use Ottosmops\Pdfvalidate\Validator;
-
-use Ottosmops\Pdfvalidate\Exceptions\FileNotFound;
 use Ottosmops\Pdfvalidate\Exceptions\BinaryNotFound;
-use Ottosmops\Pdfvalidate\Exceptions\FileFormatNotAllowed;
+use Ottosmops\Pdfvalidate\Exceptions\FileNotFound;
 use Ottosmops\Pdfvalidate\Exceptions\MimeTypeIsNotPdf;
+use Ottosmops\Pdfvalidate\Validator;
+use PHPUnit\Framework\TestCase;
 
 class PdfvalidateTest extends TestCase
 {
-    protected $src_path = __DIR__.'/testfiles/';
+    protected $src_path = __DIR__ . '/testfiles/';
 
     protected $correct_file = 'correct.pdf';
 
@@ -26,7 +23,16 @@ class PdfvalidateTest extends TestCase
     {
         putenv('PATH=$PATH:/usr/local/bin/:/usr/bin');
         $validator = new Validator($this->src_path . $this->correct_file);
-        $actual = $validator->check();
+        $actual    = $validator->check();
+        $this->assertTrue($actual);
+    }
+
+    /** @test */
+    public function it_validates_pdf_with_execution_time()
+    {
+        putenv('PATH=$PATH:/usr/local/bin/:/usr/bin');
+        $validator = new Validator($this->src_path . $this->correct_file, '', 33);
+        $actual    = $validator->check();
         $this->assertTrue($actual);
     }
 
@@ -43,7 +49,7 @@ class PdfvalidateTest extends TestCase
     {
         putenv('PATH=$PATH:/usr/local/bin/:/usr/bin');
         $validator = new Validator($this->src_path . $this->slightly_corrupted);
-        $actual = $validator->check();
+        $actual    = $validator->check();
         $this->assertFalse($actual);
         $this->assertSame($validator->error, "Could open the PDF, but the PDF seems to be corrupted.");
     }
@@ -53,7 +59,7 @@ class PdfvalidateTest extends TestCase
     {
         putenv('PATH=$PATH:/usr/local/bin/:/usr/bin');
         $validator = new Validator($this->src_path . $this->corrupted);
-        $actual = $validator->check();
+        $actual    = $validator->check();
         $this->assertFalse($actual);
         $this->assertSame($validator->error, "Could not open the PDF.");
     }
@@ -80,7 +86,5 @@ class PdfvalidateTest extends TestCase
         (new Validator($this->src_path . 'corrupted-pdf.jpg'))
             ->check();
     }
-
-
 
 }
