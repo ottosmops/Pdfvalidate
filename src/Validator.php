@@ -43,7 +43,7 @@ class Validator
 
     public function checkExecutable()
     {
-        $process = new Process('which ' . $this->executable);
+        $process = Process::fromShellCommandline('which ' . $this->executable);
         $process->run();
         if (!$process->isSuccessful()) {
             throw new BinaryNotFound($process);
@@ -61,7 +61,7 @@ class Validator
     {
         $command = $this->executable . ' -pdf "' . $this->file . '" - 2>&1 >/dev/null';
 
-        $process = new Process($command);
+        $process = Process::fromShellCommandline($command);
         $process->setTimeout($this->timeout);
         $process->run();
 
