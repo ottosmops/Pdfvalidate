@@ -18,10 +18,14 @@ class PdfvalidateTest extends TestCase
 
     protected $corrupted = 'corrupted-pdf.pdf';
 
+    protected function setUp(): void
+    {
+        putenv('PATH=' . getenv('PATH') . ':/opt/homebrew/bin:/usr/local/bin:/usr/bin');
+    }
+
     /** @test */
     public function it_validates_pdf()
     {
-        putenv('PATH=$PATH:/usr/local/bin/:/usr/bin');
         $validator = new Validator($this->src_path . $this->correct_file);
         $actual    = $validator->check();
         $this->assertTrue($actual);
@@ -30,7 +34,6 @@ class PdfvalidateTest extends TestCase
     /** @test */
     public function it_validates_pdf_with_execution_time()
     {
-        putenv('PATH=$PATH:/usr/local/bin/:/usr/bin');
         $validator = new Validator($this->src_path . $this->correct_file, '', 33);
         $actual    = $validator->check();
         $this->assertTrue($actual);
@@ -39,7 +42,6 @@ class PdfvalidateTest extends TestCase
     /** @test */
     public function it_static_validates_pdf()
     {
-        putenv('PATH=$PATH:/usr/local/bin/:/usr/bin');
         $actual = Validator::validate($this->src_path . $this->correct_file)->check();
         $this->assertTrue($actual);
     }
@@ -47,7 +49,6 @@ class PdfvalidateTest extends TestCase
     /** @test */
     public function slightly_corrupted_pdf()
     {
-        putenv('PATH=$PATH:/usr/local/bin/:/usr/bin');
         $validator = new Validator($this->src_path . $this->slightly_corrupted);
         $actual    = $validator->check();
         $this->assertFalse($actual);
@@ -57,7 +58,6 @@ class PdfvalidateTest extends TestCase
     /** @test */
     public function corrupted_pdf()
     {
-        putenv('PATH=$PATH:/usr/local/bin/:/usr/bin');
         $validator = new Validator($this->src_path . $this->corrupted);
         $actual    = $validator->check();
         $this->assertFalse($actual);
